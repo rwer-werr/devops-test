@@ -1,7 +1,0 @@
-﻿.git
-.gitignore
-.env
-venv
-pycache
-*.pyc
-README.md
