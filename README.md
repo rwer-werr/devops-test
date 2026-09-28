@@ -51,9 +51,9 @@ python app/app.py
 
 
 
-\* Docker
+\- Docker
 
-\* Docker Compose
+\- Docker Compose
 
 
 
