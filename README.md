@@ -24,17 +24,17 @@
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
 # или
-venv\\Scripts\\activate  # Windows
+venv\\\\Scripts\\\\activate  # Windows
 
 # Установить зависимости
 pip install -r app/requirements.txt
 
 # Настроить переменные окружения
-export DB\_HOST=localhost
-export DB\_PORT=5432
-export DB\_NAME=testdb
-export DB\_USER=postgres
-export DB\_PASSWORD=secret
+export DB\\\_HOST=localhost
+export DB\\\_PORT=5432
+export DB\\\_NAME=testdb
+export DB\\\_USER=postgres
+export DB\\\_PASSWORD=secret
 
 # Запустить приложение
 python app/app.py
@@ -43,67 +43,169 @@ python app/app.py
 
 
 
-\## 🐳 Запуск через Docker
+## 🐳 Запуск через Docker
 
 
 
-\### Требования:
-
-\- Docker
-
-\- Docker Compose
+\### Требования
 
 
 
-\### Установка и запуск:
+\* Docker
+
+\* Docker Compose
 
 
+
+\### Установка и запуск
+
+
+
+Скопируйте файл с примером переменных окружения:
+
+
+
+```bash
 
 cp .env.example .env
 
+```
+
+
+
+При необходимости отредактируйте `.env`:
+
+
+
+```bash
+
 nano .env
+
+```
+
+
+
+Запустите приложение:
+
+
+
+```bash
 
 docker compose up -d --build
 
+```
+
+
+
+Проверьте состояние контейнеров:
+
+
+
+```bash
+
 docker compose ps
+
+```
+
+
+
+Проверьте работоспособность приложения:
+
+
+
+```bash
 
 curl http://localhost/health
 
-В `.env должно быть DB\_HOST=db (имя сервиса из docker-compose.yml), а не localhost.
+```
 
 
 
-\### Проверка сохранности данных:
+> \*\*Важно:\*\* при запуске через Docker в `.env` должно быть указано `DB\_HOST=db`, где `db` — имя сервиса PostgreSQL из `docker-compose.yml`. Не используйте `localhost`.
 
 
 
-``bash
+\---
+
+
+
+\## 💾 Проверка сохранности данных
+
+
+
+Получите текущее количество записей:
+
+
+
+```bash
 
 curl http://localhost/data
 
+```
+
+
+
+Остановите контейнеры:
+
+
+
+```bash
+
 docker compose down
+
+```
+
+
+
+Запустите их снова:
+
+
+
+```bash
 
 docker compose up -d
 
+```
+
+
+
+Снова проверьте данные:
+
+
+
+```bash
+
 curl http://localhost/data
 
-
-
-Счётчик `total\_records` продолжает расти после перезапуска, так как данные PostgreSQL хранятся в volume `pgdata`.
-
-
-
-\### Остановка:
+```
 
 
 
-bash
+Счётчик `total\_records` продолжает расти после перезапуска, так как данные PostgreSQL хранятся в Docker volume `pgdata`.
+
+
+
+\---
+
+
+
+\## 🛑 Остановка
+
+
+
+```bash
 
 docker compose down
 
-`
+```
 
 
 
-Не используйте `docker compose down -v`: флаг `-v` удаляет volume вместе с данными.
+> \*\*Важно:\*\* не используйте `docker compose down -v`, если хотите сохранить данные. Флаг `-v` удаляет Docker volumes вместе с их содержимым.
+
+
+
+```
+
+
 
