@@ -39,10 +39,10 @@ export DB\\\_PASSWORD=secret
 # Запустить приложение
 python app/app.py
 
-'''
+```
 
 
-
+```
 ## 🐳 Запуск через Docker
 
 
